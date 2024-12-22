@@ -5,15 +5,22 @@ import './App.css';
 
 function App() {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]); 
-  const [player , setPlayer] = useState("x");
+  const [player , setPlayer] = useState("o");
   const [result , setResult] = useState({winner: "none" , state: "none"});
 
   useEffect(() => {
     checkWin();
+    if (player === "x") {
+      setPlayer("o");
+    } else {
+      setPlayer("x");
+    }   
   }, [board]);
 
   useEffect(() => {
-    alert(`Player ${result.winner} has won`);
+    if (result.state !== "none") {
+      alert(`Player ${result.winner} has won`);
+    }
   }, [result]);
 
   const chooseSquare = (square) => {
@@ -25,11 +32,7 @@ function App() {
         return val;
       })
     );
-    if (player === "x") {
-      setPlayer("o");
-    } else {
-      setPlayer("x");
-    }    
+ 
   };
 
   const checkWin = () => {
