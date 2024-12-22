@@ -9,7 +9,7 @@ function App() {
   const chooseSquare = (square) => {
     setBoard(
       board.map((val , idx) => {
-        if (idx === square) {
+        if (idx === square && val === "") {
           return player;
         }
         return val;
