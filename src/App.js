@@ -14,7 +14,12 @@ function App() {
         }
         return val;
       })
-    )
+    );
+    if (player === "x") {
+      setPlayer("O");
+    } else {
+      setPlayer("X");
+    }
   }
 
   return (
