@@ -1,44 +1,73 @@
-.App {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+/* Reset */
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif; /* Modern font */
+  background-color: #1e1e2f; /* Dark background for contrast */
+  color: #ffffff; /* White text for readability */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* App container */
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Board container */
 .board {
   width: 500px;
   height: 500px;
-  background-color: aquamarine;
-  border: 1px solid black;
+  background: linear-gradient(145deg, #2a2a3f, #3a3a5f); /* Subtle gradient */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5); /* Elevation */
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
+/* Row container */
 .row {
-  flex: 33%; /* 33% of the main board */
+  flex: 1;
   display: flex;
-  flex-direction: row;
 }
 
+/* Square */
 .square {
-  flex: 33%; /* 33% of the row */
-  height: 100%;
-  border: 1px solid black;
-  cursor: pointer;
+  flex: 1;
   display: grid;
   place-items: center;
-  font-size: 30px;
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #4a4a6f; /* Default square color */
+  border: 1px solid #6a6a8f; /* Softer border color */
+  font-size: 3rem; /* Larger text size */
+  color: #ffffff; /* Text color */
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover/active effects */
+  cursor: pointer;
+}
+
+/* Square hover and active states */
+.square:hover {
+  background-color: #5a5a7f; /* Highlight on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 .square:active {
-  background-color: #64f4c4;
+  background-color: #3a3a5f; /* Darker tone on click */
+  transform: scale(0.95); /* Pressed effect */
 }
 
+/* Add glow effect for active player or winning square */
+.square.winning {
+  background: linear-gradient(145deg, #ff6f61, #ff8869); /* Vibrant gradient */
+  color: #ffffff; /* White text for contrast */
+  box-shadow: 0 0 15px rgba(255, 111, 97, 0.8); /* Glowing effect */
+}
