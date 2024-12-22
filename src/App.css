@@ -20,3 +20,9 @@ body {
   flex-direction: column;
 }
 
+.row {
+  flex: 33%; /* 33% of the main board */
+  display: flex;
+  flex-direction: row;
+}
+
