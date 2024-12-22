@@ -4,9 +4,17 @@ import './App.css';
 
 function App() {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]); 
+  const [player , setPlayer] = useState("X");
 
   const chooseSquare = (square) => {
-
+    setBoard(
+      board.map((val , idx) => {
+        if (idx === square) {
+          return player;
+        }
+        return val;
+      })
+    )
   }
 
   return (
