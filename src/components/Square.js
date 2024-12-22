@@ -1,10 +1,10 @@
 // this component will represent each square in the game board
-
 import React from "react";
+import '../App.css';
 
 function Square ({val , chooseSquare  }) {
     return (
-        <div>{val}</div>
+        <div className="square" onClick={chooseSquare}>{val}</div>
     )
 }
 
