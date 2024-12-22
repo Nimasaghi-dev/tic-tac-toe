@@ -10,6 +10,8 @@ function App() {
 
   useEffect(() => {
     checkWin();
+    checkIfTie();
+
     if (player === "x") {
       setPlayer("o");
     } else {
@@ -19,7 +21,7 @@ function App() {
 
   useEffect(() => {
     if (result.state !== "none") {
-      alert(`Player ${result.winner} has won`);
+      alert(`Game finished , ${result.winner} has won`);
     }
   }, [result]);
 
@@ -32,7 +34,7 @@ function App() {
         return val;
       })
     );
- 
+
   };
 
   const checkWin = () => {
@@ -49,6 +51,19 @@ function App() {
         setResult({winner: player , state: "won"});
       }
     })
+  };
+
+  const checkIfTie = () => {
+    let filled = true;
+    board.forEach((square) => {
+      if (square === "") {
+        filled = false;
+      }
+    })
+
+    if (filled) {
+      setResult({ winner: "No one" , state: "Tie" });
+    }
   };
 
   return (
