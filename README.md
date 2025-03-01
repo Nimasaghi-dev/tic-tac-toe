@@ -46,7 +46,7 @@ Tic-Tac-Toe/
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/tic-tac-toe.git
+   git clone https://github.com/Nimasaghi-dev/tic-tac-toe.git
    cd tic-tac-toe
    ```
 
