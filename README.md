@@ -73,7 +73,3 @@ Tic-Tac-Toe/
 5. The game resets automatically after each round or when the "Reset" button is clicked.
 
 ---
-
-## Screenshots 📸
-![](src/assets/screenShots/Screenshot%202024-12-22%20at%2018.58.35.png)
-![](src/assets/screenShots/Screenshot%202024-12-22%20at%2018.58.14.png)
