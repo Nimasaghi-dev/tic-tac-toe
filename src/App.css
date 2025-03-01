@@ -1,68 +1,92 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --accent-color: #3498db;
+  --text-color: #ecf0f1;
+  --player-x-color: #e74c3c;
+  --player-o-color: #2ecc71;
+}
+
 /* Reset */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif; /* Modern font */
-  background-color: #1e1e2f; /* Dark background for contrast */
-  color: #ffffff; /* White text for readability */
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-color);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 /* App container */
 .App {
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  box-sizing: border-box;
+  justify-content: center;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.game-title {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+}
+
+.game-status {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.player-x {
+  color: var(--player-x-color);
+  font-weight: bold;
+}
+
+.player-o {
+  color: var(--player-o-color);
+  font-weight: bold;
 }
 
 /* Board container */
 .board {
-  width: 500px;
-  height: 500px;
-  background: linear-gradient(145deg, #2a2a3f, #3a3a5f); /* Subtle gradient */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5); /* Elevation */
+  width: 300px;
+  height: 300px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 /* Row container */
 .row {
-  flex: 1;
+  flex: 33%;
   display: flex;
+  flex-direction: row;
 }
 
 /* Square */
 .square {
-  flex: 1;
+  flex: 33%;
+  height: 100%;
+  border: 1px solid black;
+  cursor: pointer;
   display: grid;
   place-items: center;
-  background-color: #4a4a6f; /* Default square color */
-  border: 1px solid #6a6a8f; /* Softer border color */
-  font-size: 3rem; /* Larger text size */
-  color: #ffffff; /* Text color */
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover/active effects */
-  cursor: pointer;
+  font-size: 30px;
 }
 
 /* Square hover and active states */
 .square:hover {
-  background-color: #5a5a7f; /* Highlight on hover */
-  transform: scale(1.05); /* Slight zoom effect */
-}
-
-.square:active {
-  background-color: #3a3a5f; /* Darker tone on click */
-  transform: scale(0.95); /* Pressed effect */
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Add glow effect for active player or winning square */
@@ -70,4 +94,125 @@ body {
   background: linear-gradient(145deg, #ff6f61, #ff8869); /* Vibrant gradient */
   color: #ffffff; /* White text for contrast */
   box-shadow: 0 0 15px rgba(255, 111, 97, 0.8); /* Glowing effect */
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.reset-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.winner-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.score-item {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Add these animations for when squares are filled */
+.square.player-x, .square.player-o {
+  animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Add a winning line animation */
+.winning-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  animation: drawLine 0.5s ease-out forwards;
+}
+
+@keyframes drawLine {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+}
+
+h1 {
+  color: #61dafb;
+  margin-bottom: 20px;
+}
+
+.status {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #61dafb;
+}
+
+.board {
+  background: #1a1c20;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background: #282c34;
+  border: 2px solid #61dafb;
+  margin: 4px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.square:hover {
+  background-color: #3d4148;
+}
+
+.reset-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  color: #282c34;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reset-button:hover {
+  background-color: #4fa8c7;
 }

@@ -1,98 +1,86 @@
-import { useState , useEffect } from 'react';
-import Square from './components/Square';
-import { Patterns } from './Patterns';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+
+function Square({ value, onSquareClick }) {
+  return (
+    <button className="square" onClick={onSquareClick}>
+      {value}
+    </button>
+  );
+}
 
 function App() {
-  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]); 
-  const [player , setPlayer] = useState("o");
-  const [result , setResult] = useState({winner: "none" , state: "none"});
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
 
-  useEffect(() => {
-    checkWin();
-    checkIfTie();
-
-    if (player === "x") {
-      setPlayer("o");
-    } else {
-      setPlayer("x");
-    }   
-  }, [board]);
-
-  useEffect(() => {
-    if (result.state !== "none") {
-      alert(`Game finished , ${result.winner} has won`);
-      resetGame();
+  function handleClick(i) {
+    if (squares[i] || calculateWinner(squares)) {
+      return;
     }
-  }, [result]);
-
-  const chooseSquare = (square) => {
-    setBoard(
-      board.map((val , idx) => {
-        if (idx === square && val === "") {
-          return player;
-        }
-        return val;
-      })
-    );
-
-  };
-
-  const checkWin = () => {
-    Patterns.forEach((currentPattern) => {
-      const firstPlayer = board[currentPattern[0]];
-      if (firstPlayer === "") return;
-      let foundWinningPattern = true;
-      currentPattern.forEach((idx) => {
-        if (board[idx] !== firstPlayer) {
-          foundWinningPattern = false;
-        }
-      })
-      if (foundWinningPattern) {
-        setResult({winner: player , state: "won"});
-      }
-    })
-  };
-
-  const checkIfTie = () => {
-    let filled = true;
-    board.forEach((square) => {
-      if (square === "") {
-        filled = false;
-      }
-    })
-
-    if (filled) {
-      setResult({ winner: "No one" , state: "Tie" });
-    }
-  };
-
-  const resetGame = () => {
-    setBoard (["", "", "", "", "", "", "", "", ""]);
-    setPlayer("o");
+    const nextSquares = squares.slice();
+    nextSquares[i] = xIsNext ? "X" : "O";
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
   }
 
+  function resetGame() {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+  }
+
+  const winner = calculateWinner(squares);
+  const status = winner
+    ? `Winner: ${winner}`
+    : squares.every((square) => square)
+    ? "Game is a draw!"
+    : `Next player: ${xIsNext ? "X" : "O"}`;
+
   return (
-    <div className="App">
-      <div className='board'>
-        <div className='row'>
-          <Square val={board[0]} chooseSquare={() => {chooseSquare(0)}} />
-          <Square val={board[1]} chooseSquare={() => {chooseSquare(1)}} />
-          <Square val={board[2]} chooseSquare={() => {chooseSquare(2)}} />
+    <div className="game">
+      <h1>Tic Tac Toe</h1>
+      <div className="status">{status}</div>
+      <div className="board">
+        <div className="board-row">
+          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
         </div>
-        <div className='row'>
-          <Square val={board[3]} chooseSquare={() => {chooseSquare(3)}} />
-          <Square val={board[4]} chooseSquare={() => {chooseSquare(4)}} />
-          <Square val={board[5]} chooseSquare={() => {chooseSquare(5)}} />
+        <div className="board-row">
+          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
         </div>
-        <div className='row'>
-          <Square val={board[6]} chooseSquare={() => {chooseSquare(6)}} />
-          <Square val={board[7]} chooseSquare={() => {chooseSquare(7)}} />
-          <Square val={board[8]} chooseSquare={() => {chooseSquare(8)}} />
+        <div className="board-row">
+          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
         </div>
       </div>
+      <button className="reset-button" onClick={resetGame}>
+        Reset Game
+      </button>
     </div>
   );
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
 }
 
 export default App;
